@@ -1,0 +1,29 @@
+dataset: customer_master
+version: 1.0
+
+required_columns:
+  - Customer name
+  - Delivery Customer Name
+  - MATO_DeliveryCustomerCode
+  - Contract number
+
+columns:
+  MATO_DeliveryCustomerCode:
+    required: true
+    unique: true
+    severity: error
+
+  Contract number:
+    required: true
+    unique: true
+    severity: error
+
+  Finishing Method:
+    required: true
+    allowed_values: [310, 100, 300, STD]
+    severity: error
+
+  Delivery Customer Name:
+    required: true
+    max_length: 80
+    severity: warning
