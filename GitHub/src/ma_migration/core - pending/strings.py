@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 
 def strip_object_columns(df: pd.DataFrame) -> pd.DataFrame:
-    """Mechanically mirrors the notebook pattern: strip leading/trailing spaces on object cols."""
+    """Strips leading and trailing whitespace from all object-type columns in a DataFrame."""
     df = df.copy()
     obj_cols = df.select_dtypes(include="object").columns
     if len(obj_cols) > 0:
@@ -11,11 +11,13 @@ def strip_object_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 def zfill_str(series: pd.Series, width: int) -> pd.Series:
+    """Zero-fill a string series to a specified width."""
     return series.astype(str).str.zfill(width)
 
 def numeric_id_to_str(series: pd.Series) -> pd.Series:
-    """Notebook uses map('{:.0f}'.format) to convert numeric IDs to integer-like strings."""
+    """Converts a numeric ID series to string, removing any decimal places and stripping whitespace."""
     return series.map('{:.0f}'.format).astype(str).str.strip()
 
 def coerce_numeric_keep_nan(series: pd.Series) -> pd.Series:
+    """Converts a series to numeric, coercing errors to NaN."""
     return series.apply(lambda x: pd.to_numeric(x, errors='coerce'))
