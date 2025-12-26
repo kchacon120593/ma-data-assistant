@@ -13,14 +13,17 @@ def prepare_customers(
     strict: bool = True
 ) -> DomainResult:
     res = DomainResult()
-
+    
+    """Prepare customer data."""    
+    
+    # ----------- Transformations -----------
     cus = T.clean_object_columns(cus)
-    cus = T.add_clean_customer_id(cus, cfg.customer_id_col)
+    cus = T.clean_customer_id(cus, cfg.customer_id_col)
     cus = T.normalize_invoicing_cluster(cus, cfg.invoicing_cluster_col)
 
     cus = T.replace_invoicing_coupling_codes(
         cus, cfg.invoicing_coupling_col,
-        mapping={"no coupling":"0001","manual invoice":"0090"}
+        mapping={"no coupling":"0001","manual invoice":"0090"} # Replace as needed
     )
     cus = T.assign_default_coupling(cus, cfg.invoicing_coupling_col, default="0001")
 
@@ -34,8 +37,11 @@ def prepare_customers(
     cus_inv = cus.copy()
     cus_lw = cus.copy()
 
-    cus["DepartmentID/BranchID in HeliosDb_OG"] = cus[cfg.dept_id_col].copy(deep=True)
-    cus = T.normalize_department_id_when_single_missing(cus, cfg.customer_id_col, cfg.dept_id_col)
+
+    #-------------- UPDATE WHEN WORKING WITH DEPT ID ----------------
+    
+    #cus["DepartmentID/BranchID in HeliosDb_OG"] = cus[cfg.dept_id_col].copy(deep=True)
+    #cus = T.normalize_department_id_when_single_missing(cus, cfg.customer_id_col, cfg.dept_id_col)
 
     cus = T.add_mato_columns(cus, vat_col=cfg.vat_col, dept_id_col=cfg.dept_id_col)
     cus = T.add_invoicing_customer_id(
@@ -45,7 +51,7 @@ def prepare_customers(
         cluster_col=cfg.invoicing_cluster_col
     )
 
-    expanded = T.explode_contract_type_both(cus, cfg.contract_type_raw_col)
+    cus = T.explode_contract_type_both(cus, cfg.contract_type_raw_col)
 
     try:
         V.validate_contract_types(expanded, "ContractType", list(cfg.valid_contract_types))
@@ -55,8 +61,7 @@ def prepare_customers(
     res.data = {
         "customers_base": cus,
         "customers_for_invoicing": cus_inv,
-        "customers_for_lockers_wearers": cus_lw,
-        "customers_expanded": expanded,
+        "customers_for_lockers_wearers": cus_lw
     }
 
     res.raise_if_strict(strict)
