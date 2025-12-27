@@ -14,7 +14,7 @@ class SourceConfig:
     """
     customers_masterfile_path: Path | None = None
     customers_sheet: str = "Customer Master File"
-    customers_header: int = 3
+    customers_header: int = 2
 
     #contractlines_masterfile_path: Path | None = None
     #finishing_methods_path: Path | None = None

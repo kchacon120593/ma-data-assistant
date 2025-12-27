@@ -1,0 +1,150 @@
+domain: customers
+version: 1.0
+description: Customer data required for migration
+
+filename: Customer_Master_File.xlsx
+sheet: MasterFile
+header: 2
+
+columns:
+  Source_Customer_ID:
+    - name: Source_Customer_ID
+      type: string
+      required: true
+
+  Industry_Category:
+    - name: Industry_Category
+      type: string
+      required: true
+
+  Customer_Name:
+    - name: Customer_Name
+      type: string
+      required: true
+
+  NIP_VAT_Number:
+    - name: NIP_VAT_Number
+      type: string
+      required: true
+
+  Contract_Number:
+    - name: Contract_Number
+      type: string
+      required: true
+
+  Contract_Type:
+    - name: Contract_Type
+      type: string
+      required: true
+      allowed_values: ["Rental", "Laundry", "Both"]
+      valid_values: ["Rental", "Laundry"]
+
+  Contract_Signed_Date:
+    - name: Contract_Signed_Date
+      type: date
+      required: true
+
+  Contract_Term:
+    - name: Contract_Term
+      type: string
+      required: true
+
+  Amount_of_Employees:
+    - name: Amount_of_Employees
+      type: integer
+      required: true
+
+  Customer_Postal_Code:
+    - name: Customer_Postal_Code
+      type: string
+      required: true
+
+  Customer_City:
+    - name: Customer_City
+      type: string
+      required: true
+
+  Customer_Town:
+    - name: Customer_Town
+      type: string
+      required: true
+
+  Customer_Address:
+    - name: Customer_Address
+      type: string
+      required: true
+
+  Contact_Person:
+    - name: Contact_Person
+      type: string
+      required: true
+
+  Contact_Role:
+    - name: Contact_Role
+      type: string
+      required: true
+
+  Contact_Phone_Number:
+    - name: Contact_Phone_Number
+      type: string
+      required: true
+
+  Contact_Email:
+    - name: Contact_Email
+      type: string
+      required: true
+
+  Invoicing_Coupling_Code:
+    - name: Invoicing_Coupling_Code
+      type: string
+      required: true
+
+  Invoicing_Cluster:
+    - name: Invoicing_Cluster
+      type: string
+      required: true
+
+  Invoicing_Payment_Term:
+    - name: Invoicing_Payment_Term
+      type: string
+      required: true
+
+  Invoicing_Method:
+    - name: Invoicing_Method
+      type: string
+      required: true
+
+  Invoicing_Postal_Code:
+    - name: Invoicing_Postal_Code
+      type: string
+      required: true
+
+  Invoicing_City:
+    - name: Invoicing_City  
+      type: string
+      required: true
+
+  Invoicing_Town:
+    - name: Invoicing_Town
+      type: string
+      required: true
+
+  Invoicing_Address:
+    - name: Invoicing_Address
+      type: string
+      required: true
+
+  Customer_Price_Model:
+    - name: Customer_Price_Model
+      type: string
+      required: true
+
+  Has_Rented_Locker:
+    - name: Has_Rented_Locker?
+      type: boolean
+      required: true
+
+  Has_Locker_Management:
+    - name: Has_Locker_Management?
+      type: boolean
+      required: true
